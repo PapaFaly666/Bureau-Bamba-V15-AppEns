@@ -33,7 +33,7 @@ services:
     image: nginx:latest
     container_name: laravel_nginx
     ports:
-      - "8090:80"  # L'application sera accessible sur http://localhost:8090
+      - "10000:80"  # L'application sera accessible sur http://localhost:8090
     volumes:
       - .:/var/www
       - ./nginx/default.conf:/etc/nginx/conf.d/default.conf
