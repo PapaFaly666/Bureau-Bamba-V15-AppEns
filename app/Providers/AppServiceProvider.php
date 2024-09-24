@@ -39,7 +39,7 @@ class AppServiceProvider extends ServiceProvider
 
         // Configurer UserService avec Firestore
         $this->app->singleton(UserService::class, function ($app) {
-            $firebaseFactory = (new Factory)->withServiceAccount((env('FIREBASE_CREDENTIALS')));
+            $firebaseFactory = (new Factory)->withServiceAccount(base_path(env('FIREBASE_CREDENTIALS')));
             $auth = $firebaseFactory->createAuth();
             $firestore = $firebaseFactory->createFirestore();
             $storage = $firebaseFactory->createStorage();
