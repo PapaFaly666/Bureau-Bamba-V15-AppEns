@@ -1,0 +1,47 @@
+version: '3.8'
+
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: laravel_app
+    volumes:
+      - .:/var/www
+    networks:
+      - laravel
+    environment:
+      - DB_HOST=mysql
+      - DB_DATABASE=gestionEnseignement
+      - DB_USERNAME=pfdev
+      - DB_PASSWORD=Pfdev123!
+
+  mysql:
+    image: mysql:8.0
+    container_name: laravel_mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: diagne123
+      MYSQL_DATABASE: gestionEnseignement
+      MYSQL_USER: pfdev
+      MYSQL_PASSWORD: Pfdev123!
+    volumes:
+      - mysql_data:/var/lib/mysql
+    networks:
+      - laravel
+
+  nginx:
+    image: nginx:latest
+    container_name: laravel_nginx
+    ports:
+      - "8090:80"  # L'application sera accessible sur http://localhost:8090
+    volumes:
+      - .:/var/www
+      - ./nginx/default.conf:/etc/nginx/conf.d/default.conf
+    networks:
+      - laravel
+
+volumes:
+  mysql_data:
+
+networks:
+  laravel:
